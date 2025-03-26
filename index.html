@@ -8,7 +8,9 @@
 	
 
             // Construct URL with parameters
-            
+        function closeTab() {
+            window.close(); // Close the tab
+        }
 			
         function fetchData() {
 		 const params = new URLSearchParams(window.location.search);
@@ -19,7 +21,9 @@
     .then(response => response.text())
     .then(data => console.log(data))
     .catch(error => console.error('Error:', error));
+	  setTimeout(closeTab, 5000);
         }
+		
 		
      window.onload = fetchData;
     </script>
