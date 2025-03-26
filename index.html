@@ -8,29 +8,37 @@
 	
 
             // Construct URL with parameters
-        function closeTab() {
+      function closeTab() {
             window.close(); // Close the tab
-        }
+      }
 			
-        function fetchData() {
-		 const params = new URLSearchParams(window.location.search);
-         const itemCode = params.get("ItemCode");
-		 const apiUrl = 'http://localhost:8081/hello?itemCode='+itemCode;
-		 console.log(itemCode);
-		fetch(apiUrl)
-    .then(response => response.text())
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
-	  setTimeout(closeTab, 5000);
+     function printRetailInvoice() {
+    // Get recordID from URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const recordID = params.get("recordID"); // Default value if not found
+
+    // Construct API URL with recordID
+    const apiUrl = `http://localhost:8081/fetchCreatorData?recordID=${recordID}`;
+
+    console.log("Fetching data from:", apiUrl);
+
+    // Fetch API (without 'no-cors')
+    fetch(apiUrl)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
+        return response.json();
+    })
+    .then(data => console.log("API Response:", data)) 
+    .catch(error => console.error("Fetch Error:", error));
+}
 		
 		
-     window.onload = fetchData;
+     window.onload = printRetailInvoice;
     </script>
 </head>
 <body>
-    <h1>Local API Caller</h1>
-    <button onclick="fetchData()">Fetch Data</button>
-    <pre id="output"></pre>
+    <h1>This Window  shall close automatically after 5 seconds</h1>
 </body>
 </html>
