@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoke Local API</title>
+    <script>
+	
+
+            // Construct URL with parameters
+            
+			
+        function fetchData() {
+		 const params = new URLSearchParams(window.location.search);
+         const itemCode = params.get("ItemCode");
+		 const apiUrl = 'http://localhost:8081/hello?itemCode='+itemCode;
+		 console.log(itemCode);
+		fetch(apiUrl)
+    .then(response => response.text())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+        }
+		
+     window.onload = fetchData;
+    </script>
+</head>
+<body>
+    <h1>Local API Caller</h1>
+    <button onclick="fetchData()">Fetch Data</button>
+    <pre id="output"></pre>
+</body>
+</html>
