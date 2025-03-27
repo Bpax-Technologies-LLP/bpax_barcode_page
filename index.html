@@ -3,39 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoke Local API</title>
+    <title>BPAX TECHNOLOGIES LLP</title>
     <script>
-	
-
-            // Construct URL with parameters
-      function closeTab() {
-            window.close(); // Close the tab
-      }
-			
-     function printRetailInvoice() {
-    // Get recordID from URL parameters
-    const params = new URLSearchParams(window.location.search);
-    const recordID = params.get("recordID"); // Default value if not found
-
-    // Construct API URL with recordID
-    const apiUrl = `http://localhost:8081/fetchCreatorData?recordID=${recordID}`;
-
-    console.log("Fetching data from:", apiUrl);
-
-    // Fetch API (without 'no-cors')
-    fetch(apiUrl)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => console.log("API Response:", data)) 
-    .catch(error => console.error("Fetch Error:", error));
+	function closeTab() {
+    window.close();
 }
-		
-		
-     window.onload = printRetailInvoice;
+
+function printLabel() {
+    const params = new URLSearchParams(window.location.search);
+    const recordID = params.get("recordID");
+    const formName = params.get("formName");
+    const apiUrl = `http://localhost:8081/printLabel?recordID=${recordID}&formName=${formName}`;
+    console.log("Fetching data from:", apiUrl);
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => console.log("API Response:", data))
+        .catch(error => console.error("Fetch Error:", error));
+    console.log("Before Calling time out");
+    setTimeout(closeTab, 5000);
+}
+window.onload = printLabel;
     </script>
 </head>
 <body>
